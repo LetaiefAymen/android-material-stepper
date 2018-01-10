@@ -159,8 +159,9 @@ public class TabsContainer extends FrameLayout {
 
             VerificationError error = stepErrors.get(i);
             childTab.updateState(error, done, current, showErrorMessageEnabled);
+            int screenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
             if (current) {
-                mTabsScrollView.smoothScrollTo(childTab.getLeft() - mContainerLateralPadding, 0);
+                mTabsScrollView.smoothScrollTo(childTab.getLeft() - (screenWidth / 2) + mContainerLateralPadding, 0);
             }
         }
     }
