@@ -169,8 +169,8 @@ public class TabsContainer extends FrameLayout {
         StepTab view = (StepTab) LayoutInflater.from(getContext()).inflate(R.layout.ms_step_tab_container, mTabsInnerContainer, false);
         view.setStepNumber(String.valueOf(position + 1));
         view.toggleDividerVisibility(!isLastPosition(position));
+        view.toggleLeftDividerVisibility(!isFirstPosition(position));
         view.setStepTitle(stepViewModel.getTitle());
-        view.setStepSubtitle(stepViewModel.getSubtitle());
         view.setSelectedColor(mSelectedColor);
         view.setUnselectedColor(mUnselectedColor);
         view.setErrorColor(mErrorColor);
@@ -188,5 +188,9 @@ public class TabsContainer extends FrameLayout {
 
     private boolean isLastPosition(int position) {
         return position == mStepViewModels.size() - 1;
+    }
+
+    private boolean isFirstPosition(int position) {
+        return position == 0;
     }
 }

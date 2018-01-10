@@ -72,19 +72,19 @@ public class StepTab extends RelativeLayout {
     final View mStepDivider;
 
     @VisibleForTesting
-    final TextView mStepTitleTextView;
+    final View mStepLeftDivider;
 
     @VisibleForTesting
-    final TextView mStepSubtitleTextView;
+    final View mStepRightDivider;
+
+    @VisibleForTesting
+    final TextView mStepTitleTextView;
 
     @VisibleForTesting
     final ImageView mStepDoneIndicator;
 
     @VisibleForTesting
     final ImageView mStepIconBackground;
-
-    @VisibleForTesting
-    CharSequence mSubtitle;
 
     /**
      * Current UI state of the tab. See {@link AbstractState} for more details.
@@ -103,9 +103,6 @@ public class StepTab extends RelativeLayout {
 
     @ColorInt
     private int mTitleColor;
-
-    @ColorInt
-    private int mSubtitleColor;
 
     private Typeface mNormalTypeface;
 
@@ -133,11 +130,11 @@ public class StepTab extends RelativeLayout {
         mStepDoneIndicator = (ImageView) findViewById(R.id.ms_stepDoneIndicator);
         mStepIconBackground = (ImageView) findViewById(R.id.ms_stepIconBackground);
         mStepDivider = findViewById(R.id.ms_stepDivider);
+        mStepLeftDivider = findViewById(R.id.left_Divider);
+        mStepRightDivider = findViewById(R.id.right_Divider);
         mStepTitleTextView = (TextView) findViewById(R.id.ms_stepTitle);
-        mStepSubtitleTextView = (TextView) findViewById(R.id.ms_stepSubtitle);
 
         mTitleColor = mStepTitleTextView.getCurrentTextColor();
-        mSubtitleColor = mStepSubtitleTextView.getCurrentTextColor();
 
         Typeface typeface = mStepTitleTextView.getTypeface();
         mNormalTypeface = Typeface.create(typeface, Typeface.NORMAL);
@@ -153,7 +150,18 @@ public class StepTab extends RelativeLayout {
      */
     public void toggleDividerVisibility(boolean show) {
         mStepDivider.setVisibility(show ? VISIBLE : GONE);
+        mStepRightDivider.setVisibility(show ? VISIBLE : GONE); //we assume that the default divider is linked to the right divider
     }
+
+    /**
+     * Changes the visibility of the horizontal line in the tab
+     *
+     * @param show true if the line should be shown, false otherwise
+     */
+    public void toggleLeftDividerVisibility(boolean show) {
+        mStepLeftDivider.setVisibility(show ? VISIBLE : GONE);
+    }
+
 
     /**
      * Updates the UI state of the tab and sets {@link #mCurrentState} based on the arguments.
@@ -184,16 +192,6 @@ public class StepTab extends RelativeLayout {
      */
     public void setStepTitle(CharSequence title) {
         mStepTitleTextView.setText(title);
-    }
-
-    /**
-     * Sets the optional step description. This will be displayed below step title unless it's empty or an error message is set.
-     *
-     * @param subtitle optional step description
-     */
-    public void setStepSubtitle(CharSequence subtitle) {
-        this.mSubtitle = subtitle;
-        updateSubtitle(subtitle);
     }
 
     /**
@@ -241,22 +239,6 @@ public class StepTab extends RelativeLayout {
         return AnimatedVectorDrawableCompat.create(getContext(), animatedVectorDrawableResId);
     }
 
-    private void updateSubtitle(@Nullable CharSequence newSubtitle) {
-        if (ObjectsCompat.equals(newSubtitle, mStepSubtitleTextView.getText())) {
-            return;
-        }
-
-        //Do not hide the subtitle if error message is empty
-        if (!TextUtils.isEmpty(mSubtitle) && TextUtils.isEmpty(newSubtitle)) {
-            newSubtitle = mSubtitle;
-        }
-
-        mStepSubtitleTextView.setText(newSubtitle);
-        mStepSubtitleTextView.setVisibility(!TextUtils.isEmpty(newSubtitle) ? VISIBLE : GONE);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            TransitionManager.beginDelayedTransition(this);
-        }
-    }
 
     /**
      * <p>Base state class of the tab.
@@ -276,19 +258,16 @@ public class StepTab extends RelativeLayout {
 
         @CallSuper
         protected void changeToInactiveNumber() {
-            updateSubtitle(mSubtitle);
             StepTab.this.mCurrentState = new InactiveNumberState();
         }
 
         @CallSuper
         protected void changeToActiveNumber() {
-            updateSubtitle(mSubtitle);
             StepTab.this.mCurrentState = new ActiveNumberState();
         }
 
         @CallSuper
         protected void changeToDone() {
-            updateSubtitle(mSubtitle);
             StepTab.this.mCurrentState = new DoneState();
         }
 
@@ -298,8 +277,6 @@ public class StepTab extends RelativeLayout {
             mStepNumberTextView.setVisibility(View.GONE);
             mStepIconBackground.setColorFilter(mErrorColor, PorterDuff.Mode.SRC_IN);
             mStepTitleTextView.setTextColor(mErrorColor);
-            mStepSubtitleTextView.setTextColor(mErrorColor);
-            updateSubtitle(errorMessage);
             StepTab.this.mCurrentState = new WarningState();
         }
     }
@@ -334,7 +311,6 @@ public class StepTab extends RelativeLayout {
             mStepIconBackground.setColorFilter(mUnselectedColor, PorterDuff.Mode.SRC_IN);
             mStepTitleTextView.setTextColor(mTitleColor);
             mStepTitleTextView.setAlpha(ALPHA_INACTIVE_STEP_TITLE);
-            mStepSubtitleTextView.setTextColor(mSubtitleColor);
             super.changeToInactiveNumber();
         }
 
@@ -401,7 +377,6 @@ public class StepTab extends RelativeLayout {
 
             mStepIconBackground.setColorFilter(mSelectedColor, PorterDuff.Mode.SRC_IN);
             mStepTitleTextView.setTextColor(mTitleColor);
-            mStepSubtitleTextView.setTextColor(mSubtitleColor);
             super.changeToDone();
         }
 
@@ -412,7 +387,6 @@ public class StepTab extends RelativeLayout {
             mStepIconBackground.setColorFilter(mUnselectedColor, PorterDuff.Mode.SRC_IN);
             mStepTitleTextView.setTextColor(mTitleColor);
             mStepTitleTextView.setAlpha(ALPHA_INACTIVE_STEP_TITLE);
-            mStepSubtitleTextView.setTextColor(mSubtitleColor);
 
             super.changeToInactiveNumber();
         }
@@ -423,7 +397,6 @@ public class StepTab extends RelativeLayout {
 
             mStepIconBackground.setColorFilter(mSelectedColor, PorterDuff.Mode.SRC_IN);
             mStepTitleTextView.setTextColor(mTitleColor);
-            mStepSubtitleTextView.setTextColor(mSubtitleColor);
             super.changeToActiveNumber();
         }
 
