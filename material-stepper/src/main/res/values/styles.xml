@@ -48,7 +48,7 @@ limitations under the License.
     </style>
 
     <style name="MSColorableProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:layout_width">@dimen/ms_progress_bar_width</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ms_progress_bar_height</item>
         <item name="android:padding">0dp</item>
     </style>
