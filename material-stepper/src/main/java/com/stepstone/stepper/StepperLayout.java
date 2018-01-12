@@ -1049,4 +1049,21 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
             mBackNavigationButton.setText(backButtonTextForStep);
         }
     }
+
+    public void updateAdapter() {
+      updateAdapter(mCurrentStepPosition);
+    }
+
+    public void updateAdapter(final int newStepPosition) {
+      mStepperType.onNewAdapter(this.mStepAdapter);
+      // this is so that the fragments in the adapter can be created BEFORE the onUpdate() method call
+      mPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+          //noinspection deprecation
+          mPager.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+          setCurrentStepPosition(newStepPosition);
+        }
+      });
+    }
 }
