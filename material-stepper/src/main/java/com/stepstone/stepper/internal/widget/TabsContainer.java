@@ -80,6 +80,8 @@ public class TabsContainer extends FrameLayout {
 
     private int mContainerLateralPadding;
 
+    private int mStepCounterSize;
+
     private HorizontalScrollView mTabsScrollView;
 
     private LinearLayout mTabsInnerContainer;
@@ -104,6 +106,7 @@ public class TabsContainer extends FrameLayout {
         mUnselectedColor = ContextCompat.getColor(context, R.color.ms_unselectedColor);
         mErrorColor = ContextCompat.getColor(context, R.color.ms_errorColor);
         mContainerLateralPadding = context.getResources().getDimensionPixelOffset(R.dimen.ms_tabs_container_lateral_padding);
+        mStepCounterSize = context.getResources().getDimensionPixelOffset(R.dimen.ms_step_tab_counter_size);
 
         mTabsInnerContainer = (LinearLayout) findViewById(R.id.ms_stepTabsInnerContainer);
         mTabsScrollView = (HorizontalScrollView) findViewById(R.id.ms_stepTabsScrollView);
@@ -123,6 +126,14 @@ public class TabsContainer extends FrameLayout {
 
     public void setDividerWidth(int dividerWidth) {
         this.mDividerWidth = dividerWidth;
+    }
+
+    public void setMaxStepsDisplayed(int maxStepsDisplayed) {
+      if (maxStepsDisplayed <= 1) {
+        return;
+      }
+      int containerWidth = getContext().getResources().getDisplayMetrics().widthPixels;
+      mDividerWidth = (containerWidth - mContainerLateralPadding * 2 - mStepCounterSize * maxStepsDisplayed) / (maxStepsDisplayed - 1);
     }
 
     public void setListener(@NonNull TabItemListener listener) {
@@ -160,8 +171,9 @@ public class TabsContainer extends FrameLayout {
             VerificationError error = stepErrors.get(i);
             childTab.updateState(error, done, current, showErrorMessageEnabled);
             int screenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
+            int dividerWidth = childTab.findViewById(R.id.left_Divider).getMeasuredWidth() + childTab.findViewById(R.id.icon_container).getMeasuredWidth() / 2;
             if (current) {
-                mTabsScrollView.smoothScrollTo(childTab.getLeft() - (screenWidth / 2) + mContainerLateralPadding, 0);
+                mTabsScrollView.smoothScrollTo(childTab.getLeft() - (screenWidth / 2) + dividerWidth, 0);
             }
         }
     }

@@ -17,7 +17,7 @@ limitations under the License.
 <resources>
     <dimen name="ms_bottom_navigation_bar_height">48dp</dimen>
     <dimen name="ms_dotted_progress_bar_dot_size">10dp</dimen>
-    <dimen name="ms_tabs_container_lateral_padding">24dp</dimen>
+    <dimen name="ms_tabs_container_lateral_padding">48dp</dimen>
 
     <dimen name="ms_nav_bar_button_margin">8dp</dimen>
 

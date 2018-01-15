@@ -103,7 +103,7 @@ limitations under the License.
     </style>
 
     <style name="MSStepTabDivider">
-        <item name="android:layout_width">@dimen/ms_step_tab_divider_length</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ms_step_tab_divider_thickness</item>
         <item name="android:background">@color/ms_black_12_opacity</item>
     </style>

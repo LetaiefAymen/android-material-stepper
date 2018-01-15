@@ -1054,6 +1054,10 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
       updateAdapter(mCurrentStepPosition);
     }
 
+    public void setStepperMaxStepsDisplayed(int maxStepsDisplayed) {
+        mTabsContainer.setMaxStepsDisplayed(maxStepsDisplayed);
+    }
+
     public void updateAdapter(final int newStepPosition) {
       mStepperType.onNewAdapter(this.mStepAdapter);
       // this is so that the fragments in the adapter can be created BEFORE the onUpdate() method call
