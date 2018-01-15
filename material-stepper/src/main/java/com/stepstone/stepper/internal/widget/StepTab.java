@@ -55,9 +55,9 @@ public class StepTab extends RelativeLayout {
 
     private static final float ALPHA_TRANSPARENT = 0.0f;
 
-    private static final float ALPHA_INACTIVE_STEP_TITLE = 0.54f;
+    private static final float ALPHA_INACTIVE_STEP_TITLE = 0.38f;
 
-    private static final float ALPHA_ACTIVE_STEP_TITLE = 0.87f;
+    private static final float ALPHA_ACTIVE_STEP_TITLE = 0.54f;
 
     private static final float ALPHA_OPAQUE = 1.0f;
 

@@ -93,6 +93,8 @@ limitations under the License.
     <style name="MSStepTabTitle" tools:ignore="NewApi">
         <item name="android:textColor">@color/ms_black</item><!-- Text alpha is changed in StepTab. 87% for active and 38% for inactive-->
         <item name="android:textSize">@dimen/ms_step_tab_title_font_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/ms_step_tab_counter_size</item>
     </style>
 
     <style name="MSStepTabSubtitle" tools:ignore="NewApi">
