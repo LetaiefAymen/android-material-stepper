@@ -95,6 +95,8 @@ limitations under the License.
         <item name="android:textSize">@dimen/ms_step_tab_title_font_size</item>
         <item name="android:gravity">center</item>
         <item name="android:minWidth">@dimen/ms_step_tab_counter_size</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <style name="MSStepTabSubtitle" tools:ignore="NewApi">

@@ -76,11 +76,7 @@ public class TabsContainer extends FrameLayout {
     @ColorInt
     private int mErrorColor;
 
-    private int mDividerWidth = StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH;
-
-    private int mContainerLateralPadding;
-
-    private int mStepCounterSize;
+    private int mItemWidth = StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH;
 
     private HorizontalScrollView mTabsScrollView;
 
@@ -105,11 +101,10 @@ public class TabsContainer extends FrameLayout {
         mSelectedColor = ContextCompat.getColor(context, R.color.ms_selectedColor);
         mUnselectedColor = ContextCompat.getColor(context, R.color.ms_unselectedColor);
         mErrorColor = ContextCompat.getColor(context, R.color.ms_errorColor);
-        mContainerLateralPadding = context.getResources().getDimensionPixelOffset(R.dimen.ms_tabs_container_lateral_padding);
-        mStepCounterSize = context.getResources().getDimensionPixelOffset(R.dimen.ms_step_tab_counter_size);
 
         mTabsInnerContainer = (LinearLayout) findViewById(R.id.ms_stepTabsInnerContainer);
         mTabsScrollView = (HorizontalScrollView) findViewById(R.id.ms_stepTabsScrollView);
+        setMaxStepsDisplayed(3); // The default is 3 steps to show.
     }
 
     public void setUnselectedColor(@ColorInt int unselectedColor) {
@@ -125,7 +120,7 @@ public class TabsContainer extends FrameLayout {
     }
 
     public void setDividerWidth(int dividerWidth) {
-        this.mDividerWidth = dividerWidth;
+        this.mItemWidth = dividerWidth;
     }
 
     public void setMaxStepsDisplayed(int maxStepsDisplayed) {
@@ -133,7 +128,7 @@ public class TabsContainer extends FrameLayout {
         return;
       }
       int containerWidth = getContext().getResources().getDisplayMetrics().widthPixels;
-      mDividerWidth = (containerWidth - mContainerLateralPadding * 2 - mStepCounterSize * maxStepsDisplayed) / (maxStepsDisplayed - 1);
+      mItemWidth = (containerWidth / maxStepsDisplayed);
     }
 
     public void setListener(@NonNull TabItemListener listener) {
@@ -181,13 +176,13 @@ public class TabsContainer extends FrameLayout {
     private View createStepTab(final int position, @NonNull StepViewModel stepViewModel) {
         StepTab view = (StepTab) LayoutInflater.from(getContext()).inflate(R.layout.ms_step_tab_container, mTabsInnerContainer, false);
         view.setStepNumber(String.valueOf(position + 1));
-        view.toggleDividerVisibility(!isLastPosition(position));
+        view.toggleRightDividerVisibility(!isLastPosition(position));
         view.toggleLeftDividerVisibility(!isFirstPosition(position));
         view.setStepTitle(stepViewModel.getTitle());
         view.setSelectedColor(mSelectedColor);
         view.setUnselectedColor(mUnselectedColor);
         view.setErrorColor(mErrorColor);
-        view.setDividerWidth(mDividerWidth);
+        view.getLayoutParams().width = mItemWidth;
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

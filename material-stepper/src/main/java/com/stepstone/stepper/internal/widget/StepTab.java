@@ -68,8 +68,6 @@ public class StepTab extends RelativeLayout {
     @VisibleForTesting
     final TextView mStepNumberTextView;
 
-    @VisibleForTesting
-    final View mStepDivider;
 
     @VisibleForTesting
     final View mStepLeftDivider;
@@ -129,7 +127,6 @@ public class StepTab extends RelativeLayout {
         mStepNumberTextView = (TextView) findViewById(R.id.ms_stepNumber);
         mStepDoneIndicator = (ImageView) findViewById(R.id.ms_stepDoneIndicator);
         mStepIconBackground = (ImageView) findViewById(R.id.ms_stepIconBackground);
-        mStepDivider = findViewById(R.id.ms_stepDivider);
         mStepLeftDivider = findViewById(R.id.left_Divider);
         mStepRightDivider = findViewById(R.id.right_Divider);
         mStepTitleTextView = (TextView) findViewById(R.id.ms_stepTitle);
@@ -148,8 +145,7 @@ public class StepTab extends RelativeLayout {
      *
      * @param show true if the line should be shown, false otherwise
      */
-    public void toggleDividerVisibility(boolean show) {
-        mStepDivider.setVisibility(show ? VISIBLE : GONE);
+    public void toggleRightDividerVisibility(boolean show) {
         mStepRightDivider.setVisibility(show ? VISIBLE : GONE); //we assume that the default divider is linked to the right divider
     }
 
@@ -215,11 +211,6 @@ public class StepTab extends RelativeLayout {
         this.mErrorColor = errorColor;
     }
 
-    public void setDividerWidth(int dividerWidth) {
-        mStepDivider.getLayoutParams().width = dividerWidth != StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH
-                ? dividerWidth
-                : getResources().getDimensionPixelOffset(R.dimen.ms_step_tab_divider_length);
-    }
 
     private Drawable createCircleToWarningDrawable() {
         return createAnimatedVectorDrawable(R.drawable.ms_animated_vector_circle_to_warning_24dp);
