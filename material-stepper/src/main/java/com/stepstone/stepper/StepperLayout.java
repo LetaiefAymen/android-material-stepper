@@ -98,6 +98,13 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
         void onStepSelected(int newStepPosition);
 
         /**
+         * Called when the user click on a stepTab
+         *
+         * @param position new step position
+         */
+        void onStepTabClicked(int position);
+
+        /**
          * Called when the Previous step button was pressed while on the first step
          * (the button is not present by default on first step).
          */
@@ -114,6 +121,10 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
             @Override
             public void onStepSelected(int newStepPosition) {
+            }
+
+            @Override
+            public void onStepTabClicked(int position) {
             }
 
             @Override
@@ -382,12 +393,20 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     @UiThread
     public void onTabClicked(int position) {
         if (mTabNavigationEnabled) {
-            if (position > mCurrentStepPosition) {
-                onNext();
-            } else if (position < mCurrentStepPosition) {
-                setCurrentStepPosition(position);
+            if (mListener == NULL) {
+                handleOnTabClicked(position);
+            } else {
+                mListener.onStepTabClicked(position);
             }
         }
+    }
+
+    public void handleOnTabClicked(int position) {
+      if (position > mCurrentStepPosition) {
+        onNext();
+      } else if (position < mCurrentStepPosition) {
+        setCurrentStepPosition(position);
+      }
     }
 
     /**
@@ -1056,6 +1075,12 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
     public void setStepperMaxStepsDisplayed(int maxStepsDisplayed) {
         mTabsContainer.setMaxStepsDisplayed(maxStepsDisplayed);
+    }
+
+    public void updateTabContainerVisibility(boolean visible) {
+        if (mTabNavigationEnabled) {
+            mTabsContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
     }
 
     public void updateAdapter(final int newStepPosition) {
