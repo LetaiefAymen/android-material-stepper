@@ -53,9 +53,9 @@ import com.stepstone.stepper.internal.type.StepperTypeFactory;
 import com.stepstone.stepper.internal.util.AnimationUtil;
 import com.stepstone.stepper.internal.util.TintUtil;
 import com.stepstone.stepper.internal.widget.ColorableProgressBar;
-import com.stepstone.stepper.internal.widget.CustomViewPager;
 import com.stepstone.stepper.internal.widget.DottedProgressBar;
 import com.stepstone.stepper.internal.widget.RightNavigationButton;
+import com.stepstone.stepper.internal.widget.StepViewPager;
 import com.stepstone.stepper.internal.widget.TabsContainer;
 import com.stepstone.stepper.viewmodel.StepViewModel;
 
@@ -205,7 +205,7 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
         }
     }
 
-    private CustomViewPager mPager;
+    private StepViewPager mPager;
 
     private Button mBackNavigationButton;
 
@@ -836,7 +836,7 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     }
 
     private void bindViews() {
-        mPager = (CustomViewPager) findViewById(R.id.ms_stepPager);
+        mPager = (StepViewPager) findViewById(R.id.ms_stepPager);
 
         mBackNavigationButton = (Button) findViewById(R.id.ms_stepPrevButton);
         mNextNavigationButton = (RightNavigationButton) findViewById(R.id.ms_stepNextButton);
@@ -1085,7 +1085,7 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     }
 
     public void setPagingEnabled(boolean enabled) {
-        mPager.setPagingEnabled(enabled);
+        mPager.setBlockTouchEventsFromChildrenEnabled(enabled);
     }
 
     public void updateAdapter(final int newStepPosition) {
