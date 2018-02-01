@@ -1079,8 +1079,23 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     }
 
     public void updateTabContainerVisibility(boolean visible) {
-        if (mTabNavigationEnabled) {
-            mTabsContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+       mTabsContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    public void updateStepperTypeVisibility(boolean visible) {
+      if(mStepperType!=null) {
+        mStepperType.updateVisibility(visible);
+      }
+    }
+
+    public void setStepperType(int typeIdentifier) {
+        mDottedProgressBar.setVisibility(GONE);
+        mProgressBar.setVisibility(GONE);
+        mTabsContainer.setVisibility(GONE);
+        this.mTypeIdentifier = typeIdentifier;
+        mStepperType = StepperTypeFactory.createType(this.mTypeIdentifier, this);
+        if (mStepAdapter != null) {
+          updateAdapter(getCurrentStepPosition());
         }
     }
 

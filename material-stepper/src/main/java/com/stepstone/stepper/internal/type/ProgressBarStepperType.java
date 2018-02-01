@@ -65,4 +65,9 @@ public class ProgressBarStepperType extends AbstractStepperType {
         mProgressBar.setMax(stepAdapter.getCount());
         mProgressBar.setVisibility(stepCount > 1 ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void updateVisibility(boolean visible) {
+        mProgressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 }

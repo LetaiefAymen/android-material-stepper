@@ -14,4 +14,8 @@ public class NoneStepperType extends AbstractStepperType {
     @Override
     public void onStepSelected(int newStepPosition, boolean userTriggeredChange) {
     }
+
+    @Override
+    public void updateVisibility(boolean visible) {
+    }
 }

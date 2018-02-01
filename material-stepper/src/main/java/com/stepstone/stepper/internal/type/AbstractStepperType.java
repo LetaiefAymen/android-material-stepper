@@ -80,6 +80,12 @@ public abstract class AbstractStepperType {
     }
 
     /**
+     * Called to set the visibility of the current Stepper
+     * @param visible the value of the visibility
+     */
+    public abstract void updateVisibility(boolean visible);
+
+    /**
      * Checks if there's an error for the step.
      *
      * @param stepPosition the step to check for error

@@ -68,4 +68,9 @@ public class DotsStepperType extends AbstractStepperType {
         mDottedProgressBar.setDotCount(stepCount);
         mDottedProgressBar.setVisibility(stepCount > 1 ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void updateVisibility(boolean visible) {
+        mDottedProgressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 }

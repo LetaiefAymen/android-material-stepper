@@ -88,4 +88,9 @@ public class TabsStepperType extends AbstractStepperType {
         mTabsContainer.setSteps(stepViewModels);
         mTabsContainer.setVisibility(stepCount > 1 ? View.VISIBLE : View.GONE);
     }
+
+    @Override
+    public void updateVisibility(boolean visible) {
+        mTabsContainer.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 }
