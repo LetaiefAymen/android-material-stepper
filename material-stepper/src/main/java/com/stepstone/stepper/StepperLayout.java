@@ -250,6 +250,8 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
     private int mTabStepDividerWidth = DEFAULT_TAB_DIVIDER_WIDTH;
 
+    private int mTabMaxStepsDisplayed = DEFAULT_TAB_DIVIDER_WIDTH;
+
     private String mBackButtonText;
 
     private String mNextButtonText;
@@ -902,6 +904,10 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
                 mTabStepDividerWidth = a.getDimensionPixelOffset(R.styleable.StepperLayout_ms_tabStepDividerWidth, -1);
             }
 
+            if (a.hasValue(R.styleable.StepperLayout_ms_tabStepMaxStepsDisplayed)) {
+                mTabMaxStepsDisplayed = a.getInt(R.styleable.StepperLayout_ms_tabStepMaxStepsDisplayed, -1);
+            }
+
             mShowBackButtonOnFirstStep = a.getBoolean(R.styleable.StepperLayout_ms_showBackButtonOnFirstStep, false);
 
             mShowBottomNavigation = a.getBoolean(R.styleable.StepperLayout_ms_showBottomNavigation, true);
@@ -1075,7 +1081,8 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     }
 
     public void setStepperMaxStepsDisplayed(int maxStepsDisplayed) {
-        mTabsContainer.setMaxStepsDisplayed(maxStepsDisplayed);
+        mTabMaxStepsDisplayed = maxStepsDisplayed;
+        mTabsContainer.setMaxStepsDisplayed(mTabMaxStepsDisplayed);
     }
 
     public void updateTabContainerVisibility(boolean visible) {
@@ -1097,6 +1104,10 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
         if (mStepAdapter != null) {
           updateAdapter(getCurrentStepPosition());
         }
+    }
+
+    public int getMaxStepDisplayed() {
+      return mTabMaxStepsDisplayed;
     }
 
     public void setPagingEnabled(boolean enabled) {
