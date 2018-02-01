@@ -1110,6 +1110,14 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
       return mTabMaxStepsDisplayed;
     }
 
+    public void setSelectedColor(@ColorInt int selectedColor) {
+        this.mSelectedColor = selectedColor;
+    }
+
+    public void setUnselectedColor(@ColorInt int unselectedColor) {
+        this.mUnselectedColor = unselectedColor;
+    }
+
     public void setPagingEnabled(boolean enabled) {
         mPager.setBlockTouchEventsFromChildrenEnabled(enabled);
     }
