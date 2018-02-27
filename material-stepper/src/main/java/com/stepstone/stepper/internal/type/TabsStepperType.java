@@ -49,6 +49,7 @@ public class TabsStepperType extends AbstractStepperType {
         mTabsContainer.setUnselectedColor(stepperLayout.getUnselectedColor());
         mTabsContainer.setErrorColor(stepperLayout.getErrorColor());
         mTabsContainer.setDividerWidth(stepperLayout.getTabStepDividerWidth());
+        mTabsContainer.setDividerTextPaddingWidth(stepperLayout.getTabStepDividerWidth());
         mTabsContainer.setMaxStepsDisplayed(stepperLayout.getMaxStepDisplayed());
         mTabsContainer.setListener(stepperLayout);
 

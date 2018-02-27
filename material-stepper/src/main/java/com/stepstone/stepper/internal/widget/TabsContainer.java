@@ -78,6 +78,8 @@ public class TabsContainer extends FrameLayout {
 
     private int mItemWidth = StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH;
 
+    private int dividerTextPaddingWidth = StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH;
+
     private HorizontalScrollView mTabsScrollView;
 
     private LinearLayout mTabsInnerContainer;
@@ -121,6 +123,10 @@ public class TabsContainer extends FrameLayout {
 
     public void setDividerWidth(int dividerWidth) {
         this.mItemWidth = dividerWidth;
+    }
+
+    public void setDividerTextPaddingWidth(int dividerTextPaddingWidth) {
+        this.dividerTextPaddingWidth = dividerTextPaddingWidth;
     }
 
     public void setMaxStepsDisplayed(int maxStepsDisplayed) {
@@ -183,7 +189,10 @@ public class TabsContainer extends FrameLayout {
         view.setUnselectedColor(mUnselectedColor);
         view.setErrorColor(mErrorColor);
         view.getLayoutParams().width = mItemWidth;
-
+        if (dividerTextPaddingWidth != StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH) {
+          View textContainerView = view.findViewById(R.id.ms_stepTextContainer);
+          textContainerView.setPadding(dividerTextPaddingWidth, textContainerView.getPaddingTop(), dividerTextPaddingWidth, textContainerView.getPaddingBottom());
+        }
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

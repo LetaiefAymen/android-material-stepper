@@ -250,6 +250,8 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
     private int mTabStepDividerWidth = DEFAULT_TAB_DIVIDER_WIDTH;
 
+    private int mTabStepTextPaddingWidth = DEFAULT_TAB_DIVIDER_WIDTH;
+
     private int mTabMaxStepsDisplayed = DEFAULT_TAB_DIVIDER_WIDTH;
 
     private String mBackButtonText;
@@ -390,6 +392,10 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
     public int getTabStepDividerWidth() {
         return mTabStepDividerWidth;
+    }
+
+    public int getTabStepTextPaddingWidth() {
+        return mTabStepTextPaddingWidth;
     }
 
     @Override
@@ -902,6 +908,10 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
             if (a.hasValue(R.styleable.StepperLayout_ms_tabStepDividerWidth)) {
                 mTabStepDividerWidth = a.getDimensionPixelOffset(R.styleable.StepperLayout_ms_tabStepDividerWidth, -1);
+            }
+
+            if (a.hasValue(R.styleable.StepperLayout_ms_tabStepTextPaddingWidth)) {
+                mTabStepDividerWidth = a.getDimensionPixelOffset(R.styleable.StepperLayout_ms_tabStepTextPaddingWidth, -1);
             }
 
             if (a.hasValue(R.styleable.StepperLayout_ms_tabStepMaxStepsDisplayed)) {
